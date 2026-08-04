@@ -543,6 +543,7 @@ typedef struct {
 #define PCI_HEADER_TYPE_OFFSET          0x0E
 #define PCI_BIST_OFFSET                 0x0F
 #define PCI_BASE_ADDRESSREG_OFFSET      0x10
+#define PCI_BASE_ADDRESSREG_OFFSET_1    0x14
 #define PCI_CARDBUS_CIS_OFFSET          0x28
 #define PCI_SVID_OFFSET                 0x2C             ///< SubSystem Vendor id
 #define PCI_SUBSYSTEM_VENDOR_ID_OFFSET  0x2C
@@ -561,12 +562,22 @@ typedef struct {
 //
 // defined in PCI-to-PCI Bridge Architecture Specification
 //
-#define PCI_BRIDGE_PRIMARY_BUS_REGISTER_OFFSET      0x18
-#define PCI_BRIDGE_SECONDARY_BUS_REGISTER_OFFSET    0x19
-#define PCI_BRIDGE_SUBORDINATE_BUS_REGISTER_OFFSET  0x1a
-#define PCI_BRIDGE_SECONDARY_LATENCY_TIMER_OFFSET   0x1b
-#define PCI_BRIDGE_STATUS_REGISTER_OFFSET           0x1E
-#define PCI_BRIDGE_CONTROL_REGISTER_OFFSET          0x3E
+#define PCI_BRIDGE_PRIMARY_BUS_REGISTER_OFFSET                      0x18
+#define PCI_BRIDGE_SECONDARY_BUS_REGISTER_OFFSET                    0x19
+#define PCI_BRIDGE_SUBORDINATE_BUS_REGISTER_OFFSET                  0x1A
+#define PCI_BRIDGE_SECONDARY_LATENCY_TIMER_OFFSET                   0x1B
+#define PCI_BRIDGE_IO_BASE_REGISTER_OFFSET                          0x1C
+#define PCI_BRIDGE_IO_LIMIT_REGISTER_OFFSET                         0x1D
+#define PCI_BRIDGE_STATUS_REGISTER_OFFSET                           0x1E
+#define PCI_BRIDGE_MEMORY_BASE_REGISTER_OFFSET                      0x20
+#define PCI_BRIDGE_MEMORY_LIMIT_REGISTER_OFFSET                     0x22
+#define PCI_BRIDGE_64BIT_MEMORY_BASE_REGISTER_OFFSET                0x24
+#define PCI_BRIDGE_64BIT_MEMORY_LIMIT_REGISTER_OFFSET               0x26
+#define PCI_BRIDGE_64BIT_MEMORY_UPPER_BASE_REGISTER_OFFSET          0x28
+#define PCI_BRIDGE_64BIT_MEMORY_UPPER_LIMIT_REGISTER_OFFSET         0x2C
+#define PCI_BRIDGE_IO_UPPER_BASE_REGISTER_OFFSET                    0x30
+#define PCI_BRIDGE_IO_UPPER_LIMIT_REGISTER_OFFSET                   0x32
+#define PCI_BRIDGE_CONTROL_REGISTER_OFFSET                          0x3E
 
 ///
 /// Interrupt Line "Unknown" or "No connection" value defined for x86 based system

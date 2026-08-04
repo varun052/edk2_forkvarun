@@ -736,10 +736,10 @@ GatherPpbInfo (
   //
   // Test whether it support 32 decode or not
   //
-  PciIo->Pci.Read (PciIo, EfiPciIoWidthUint8, 0x1C, 1, &Temp);
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, 0x1C, 1, &gAllOne);
-  PciIo->Pci.Read (PciIo, EfiPciIoWidthUint8, 0x1C, 1, &Value);
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, 0x1C, 1, &Temp);
+  PciIo->Pci.Read (PciIo, EfiPciIoWidthUint8, PCI_BRIDGE_IO_BASE_REGISTER_OFFSET, 1, &Temp);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, PCI_BRIDGE_IO_BASE_REGISTER_OFFSET, 1, &gAllOne);
+  PciIo->Pci.Read (PciIo, EfiPciIoWidthUint8, PCI_BRIDGE_IO_BASE_REGISTER_OFFSET, 1, &Value);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, PCI_BRIDGE_IO_BASE_REGISTER_OFFSET, 1, &Temp);
 
   if (Value != 0) {
     if ((Value & 0x01) != 0) {
@@ -762,9 +762,9 @@ GatherPpbInfo (
     // Per spec, bit 3-1 of I/O Base Register are reserved bits, so its content can't be assumed.
     //
     Value = (UINT8)(Temp ^ (BIT3 | BIT2 | BIT1));
-    PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, 0x1C, 1, &Value);
-    PciIo->Pci.Read (PciIo, EfiPciIoWidthUint8, 0x1C, 1, &Value);
-    PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, 0x1C, 1, &Temp);
+    PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, PCI_BRIDGE_IO_BASE_REGISTER_OFFSET, 1, &Value);
+    PciIo->Pci.Read (PciIo, EfiPciIoWidthUint8, PCI_BRIDGE_IO_BASE_REGISTER_OFFSET, 1, &Value);
+    PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, PCI_BRIDGE_IO_BASE_REGISTER_OFFSET, 1, &Temp);
     Value = (UINT8)((Value ^ Temp) & (BIT3 | BIT2 | BIT1));
     switch (Value) {
       case BIT3:
@@ -781,7 +781,7 @@ GatherPpbInfo (
 
   Status = BarExisted (
              PciIoDevice,
-             0x24,
+             PCI_BRIDGE_64BIT_MEMORY_BASE_REGISTER_OFFSET,
              NULL,
              &PMemBaseLimit
              );
@@ -802,7 +802,7 @@ GatherPpbInfo (
   {
     Status = BarExisted (
                PciIoDevice,
-               0x28,
+               PCI_BRIDGE_64BIT_MEMORY_UPPER_BASE_REGISTER_OFFSET,
                NULL,
                NULL
                );
@@ -2173,23 +2173,23 @@ InitializePpb (
   // Io32, pMem32, pMem64 to quiescent state
   // Resource base all ones, Resource limit all zeros
   //
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, 0x1C, 1, &gAllOne);
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, 0x1D, 1, &gAllZero);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, PCI_BRIDGE_IO_BASE_REGISTER_OFFSET, 1, &gAllOne);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint8, PCI_BRIDGE_IO_LIMIT_REGISTER_OFFSET, 1, &gAllZero);
 
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, 0x20, 1, &gAllOne);
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, 0x22, 1, &gAllZero);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, PCI_BRIDGE_MEMORY_BASE_REGISTER_OFFSET, 1, &gAllOne);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, PCI_BRIDGE_MEMORY_LIMIT_REGISTER_OFFSET, 1, &gAllZero);
 
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, 0x24, 1, &gAllOne);
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, 0x26, 1, &gAllZero);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, PCI_BRIDGE_64BIT_MEMORY_BASE_REGISTER_OFFSET, 1, &gAllOne);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, PCI_BRIDGE_64BIT_MEMORY_LIMIT_REGISTER_OFFSET, 1, &gAllZero);
 
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint32, 0x28, 1, &gAllOne);
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint32, 0x2C, 1, &gAllZero);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint32, PCI_BRIDGE_64BIT_MEMORY_UPPER_BASE_REGISTER_OFFSET, 1, &gAllOne);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint32, PCI_BRIDGE_64BIT_MEMORY_UPPER_LIMIT_REGISTER_OFFSET, 1, &gAllZero);
 
   //
   // Don't support use io32 as for now
   //
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, 0x30, 1, &gAllOne);
-  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, 0x32, 1, &gAllZero);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, PCI_BRIDGE_IO_UPPER_BASE_REGISTER_OFFSET, 1, &gAllOne);
+  PciIo->Pci.Write (PciIo, EfiPciIoWidthUint16, PCI_BRIDGE_IO_UPPER_LIMIT_REGISTER_OFFSET, 1, &gAllZero);
 
   //
   // Force Interrupt line to zero for cards that come up randomly

@@ -1522,7 +1522,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint8,
-                   0x1C,
+                   PCI_BRIDGE_IO_BASE_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
@@ -1531,7 +1531,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint16,
-                   0x30,
+                   PCI_BRIDGE_IO_UPPER_BASE_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
@@ -1541,7 +1541,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint8,
-                   0x1D,
+                   PCI_BRIDGE_IO_LIMIT_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
@@ -1550,7 +1550,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint16,
-                   0x32,
+                   PCI_BRIDGE_IO_UPPER_LIMIT_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
@@ -1565,7 +1565,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint16,
-                   0x20,
+                   PCI_BRIDGE_MEMORY_BASE_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
@@ -1575,7 +1575,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint16,
-                   0x22,
+                   PCI_BRIDGE_MEMORY_LIMIT_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
@@ -1591,7 +1591,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint16,
-                   0x24,
+                   PCI_BRIDGE_64BIT_MEMORY_BASE_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
@@ -1601,7 +1601,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint16,
-                   0x26,
+                   PCI_BRIDGE_64BIT_MEMORY_LIMIT_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
@@ -1610,7 +1610,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint32,
-                   0x28,
+                   PCI_BRIDGE_64BIT_MEMORY_UPPER_BASE_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
@@ -1619,7 +1619,7 @@ ProgramPpbApperture (
       PciIo->Pci.Write (
                    PciIo,
                    EfiPciIoWidthUint32,
-                   0x2C,
+                   PCI_BRIDGE_64BIT_MEMORY_UPPER_LIMIT_REGISTER_OFFSET,
                    1,
                    &Address32
                    );
